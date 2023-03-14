@@ -14,6 +14,6 @@ add_library(generator SHARED ${CMAKE_CURRENT_SOURCE_DIR}/lib/generator/generator
 add_library(greedy SHARED ${CMAKE_CURRENT_SOURCE_DIR}/lib/greedy/greedy.cpp)
 
 target_include_directories(generator PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/lib ${Boost_INCLUDE_DIRS})
-target_include_directories(greedy PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_include_directories(greedy PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
 target_link_libraries(main PUBLIC generator greedy)

@@ -1,6 +1,8 @@
 #pragma once
 
-struct Movie {
-    int id;
-    int score;
+struct Movie
+{
+    short int category;
+    short int startTime;
+    short int end_time;
 };

@@ -1,9 +1,14 @@
 #pragma once
 
+#include "utils.hpp"
+
 class Greedy 
 {
+private:
+    
+
 public:
     Greedy();
-    ~Greedy();
-    void run();
+    void generateData(int *filmNumber, int *catNumber);
+    static void run();
 };
