@@ -8,12 +8,15 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
 find_package(Boost REQUIRED)
 
+add_executable(generator src/generator.cpp)
 add_executable(main src/main.cpp)
 
-add_library(generator SHARED ${CMAKE_CURRENT_SOURCE_DIR}/lib/generator/generator.cpp)
 add_library(greedy SHARED ${CMAKE_CURRENT_SOURCE_DIR}/lib/greedy/greedy.cpp)
+add_library(random SHARED ${CMAKE_CURRENT_SOURCE_DIR}/lib/random/random.cpp)
+add_library(scheduler SHARED ${CMAKE_CURRENT_SOURCE_DIR}/lib/scheduler/scheduler.cpp)
 
-target_include_directories(generator PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/lib ${Boost_INCLUDE_DIRS})
-target_include_directories(greedy PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/lib)
+target_include_directories(greedy PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/lib)
+target_include_directories(random PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/lib)
+target_include_directories(scheduler PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
-target_link_libraries(main PUBLIC generator greedy)
+target_link_libraries(main PUBLIC scheduler)

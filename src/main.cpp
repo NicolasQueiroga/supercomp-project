@@ -1,5 +1,4 @@
-#include "generator/generator.hpp"
-#include "greedy/greedy.hpp"
+#include "scheduler/scheduler.hpp"
 #include <iostream>
 
 int main(int argc, char **argv)

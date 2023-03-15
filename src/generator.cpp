@@ -2,8 +2,6 @@
 #include <random>
 #include <fstream>
 #include <boost/random.hpp>
-#include "generator.hpp"
-
 
 void generateInput(int n, int m)
 {
@@ -39,4 +37,10 @@ void generateInput(int n, int m)
     }
 
     inputFile.close();
+}
+
+int main(int argc, char **argv)
+{
+    generateInput(atoi(argv[1]), atoi(argv[2]));
+    return 0;
 }
