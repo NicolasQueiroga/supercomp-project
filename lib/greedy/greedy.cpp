@@ -33,16 +33,12 @@ void Greedy::schedule()
         {
             int j = -1;
             while (this->acceptedMovies[++j] != nullptr)
-            {
                 if (this->acceptedMovies[j]->category == this->moviesList[i]->category)
-                {
                     if (this->acceptedMovies[j]->endTime <= this->moviesList[i]->startTime)
                     {
                         this->acceptedMovies[i] = this->moviesList[i];
                         break;
                     }
-                }
-            }
         }
     }
 }
