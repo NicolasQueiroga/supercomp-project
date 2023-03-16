@@ -7,7 +7,8 @@
 class Greedy : public Scheduler
 {
 private:
-    std::vector<IntervalTree<int, int>> *intervalTrees;
+    std::vector<Interval<int, Movie *>> intervals;
+    IntervalTree<int, Movie *> intervalTree;
     Movie **acceptedMovies;
 
 public:
