@@ -2,7 +2,7 @@
 
 struct Movie
 {
-    short int category;
+    int category;
     short int startTime;
-    short int end_time;
+    short int endTime;
 };

@@ -1,10 +1,19 @@
 #pragma once
 
+#include "utils.hpp"
+
 class Scheduler
 {
-private:
+protected:
+    int *movies;
+    int *categories;
+    int **maxMoviesPerCat;
+    Movie **moviesList;
+
 public:
     Scheduler();
-    virtual void sortMovies();
-    static void generateInput(int *n, int *m);
+    ~Scheduler();
+    void readMoviesCatalog();
+    void createIntervalTree();
+    void showVars();
 };

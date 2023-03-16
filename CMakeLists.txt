@@ -15,8 +15,8 @@ add_library(greedy SHARED ${CMAKE_CURRENT_SOURCE_DIR}/lib/greedy/greedy.cpp)
 add_library(random SHARED ${CMAKE_CURRENT_SOURCE_DIR}/lib/random/random.cpp)
 add_library(scheduler SHARED ${CMAKE_CURRENT_SOURCE_DIR}/lib/scheduler/scheduler.cpp)
 
-target_include_directories(greedy PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/lib)
-target_include_directories(random PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/lib)
+target_include_directories(greedy PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/lib)
+target_include_directories(random PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 target_include_directories(scheduler PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
-target_link_libraries(main PUBLIC scheduler)
+target_link_libraries(main PUBLIC scheduler greedy random)
