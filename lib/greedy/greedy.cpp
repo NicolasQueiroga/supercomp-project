@@ -50,9 +50,6 @@ void Greedy::schedule()
 void Greedy::showAcceptedMovies()
 {
     int i = -1;
-    while (++i < *(this->movies))
-    {
-        if (this->acceptedMovies[i] != nullptr)
-            std::cout << this->acceptedMovies[i]->category << ' ' << this->acceptedMovies[i]->startTime << ' ' << this->acceptedMovies[i]->endTime << '\n';
-    }
+    while (this->acceptedMovies[++i] != nullptr)
+        std::cout << this->acceptedMovies[i]->category << ' ' << this->acceptedMovies[i]->startTime << ' ' << this->acceptedMovies[i]->endTime << '\n';
 }
