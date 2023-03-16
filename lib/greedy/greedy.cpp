@@ -21,27 +21,27 @@ void Greedy::schedule()
     std::sort(this->moviesList, this->moviesList + *(this->movies), [](Movie *a, Movie *b)
               { return a->endTime < b->endTime; });
 
-    int i = -1, j;
-    bool overlaps;
-    while (++i < *(this->movies))
+    int i = -1;
+    while (this->moviesList[++i] != nullptr)
     {
-        if (this->moviesList[i]->startTime < this->moviesList[i]->endTime && categoriesMap->at(this->moviesList[i]->category) < *(this->maxMoviesPerCat[this->moviesList[i]->category]))
+        if (categoriesMap->at(this->moviesList[i]->category) == 0)
         {
-            // check if movie overlaps with any other accepted movie
-            overlaps = false;
-            j = -1;
-            while (++j < i)
+            this->acceptedMovies[i] = this->moviesList[i];
+            categoriesMap->at(this->moviesList[i]->category) = 1;
+        }
+        else
+        {
+            int j = -1;
+            while (this->acceptedMovies[++j] != nullptr)
             {
-                if (this->moviesList[i]->startTime < this->moviesList[j]->endTime && this->moviesList[j]->startTime < this->moviesList[i]->endTime)
+                if (this->acceptedMovies[j]->category == this->moviesList[i]->category)
                 {
-                    overlaps = true;
-                    break;
+                    if (this->acceptedMovies[j]->endTime <= this->moviesList[i]->startTime)
+                    {
+                        this->acceptedMovies[i] = this->moviesList[i];
+                        break;
+                    }
                 }
-            }
-            if (!overlaps)
-            {
-                this->acceptedMovies[i] = this->moviesList[i];
-                categoriesMap->at(this->moviesList[i]->category)++;
             }
         }
     }
