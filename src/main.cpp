@@ -3,7 +3,7 @@
 
 int main(int argc, char **argv)
 {
-    Greedy *greedy = new Greedy;
+    std::unique_ptr<Greedy> greedy = std::make_unique<Greedy>();
     greedy->readMoviesCatalog();
     greedy->normalSchedule();
     greedy->showAcceptedMovies();
