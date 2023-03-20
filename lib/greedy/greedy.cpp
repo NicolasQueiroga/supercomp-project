@@ -39,11 +39,11 @@ void Greedy::normalSchedule()
                 this->movieScheduleBitset->set(j);
 
             if (!(*this->movieScheduleBitset & *this->agendaBitset).any() &&
-                *this->categoriesCount[this->moviesList[i]->category - 1] + 1 <= *this->maxMoviesPerCat[this->moviesList[i]->category - 1])
+                *this->maxMoviesPerCat[this->moviesList[i]->category - 1] > 0)
             {
                 *this->agendaBitset |= *this->movieScheduleBitset;
                 this->acceptedMovies[++*this->acceptedMoviesCount] = this->moviesList[i];
-                ++*this->categoriesCount[this->moviesList[i]->category - 1];
+                --*this->maxMoviesPerCat[this->moviesList[i]->category - 1];
             }
         }
     }

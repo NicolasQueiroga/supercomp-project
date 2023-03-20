@@ -6,22 +6,12 @@ Scheduler::Scheduler()
 {
     this->movies = new int;
     this->categories = new int;
-    this->categoriesCount = new int *[24];
-    for (int i = 0; i < 24; i++)
-    {
-        this->categoriesCount[i] = new int;
-        *this->categoriesCount[i] = 0;
-    }
 }
 
 Scheduler::~Scheduler()
 {
     delete this->movies;
     delete this->categories;
-
-    for (int i = 0; i < 24; i++)
-        delete this->categoriesCount[i];
-    delete[] this->categoriesCount;
 
     for (int i = 0; i < *(this->categories); i++)
         delete this->maxMoviesPerCat[i];

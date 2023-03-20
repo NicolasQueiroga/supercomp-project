@@ -7,7 +7,6 @@ class Scheduler
 protected:
     int *movies;
     int *categories;
-    int **categoriesCount;
     int **maxMoviesPerCat;
     Movie **moviesList;
 
