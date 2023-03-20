@@ -7,6 +7,7 @@ class Scheduler
 protected:
     int *movies;
     int *categories;
+    int **categoriesCount;
     int **maxMoviesPerCat;
     Movie **moviesList;
 
@@ -14,6 +15,5 @@ public:
     Scheduler();
     ~Scheduler();
     void readMoviesCatalog();
-    void createIntervalTree();
     void showVars();
 };

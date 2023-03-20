@@ -4,6 +4,7 @@
 #include "IntervalTree.h"
 #include <vector>
 #include <map>
+#include <bitset>
 
 class Greedy : public Scheduler
 {
@@ -11,12 +12,11 @@ private:
     Movie **acceptedMovies;
     int *acceptedMoviesCount;
 
-    std::vector<bool> *agenda;
-    std::vector<bool> *movieSchedule;
-    std::vector<int> *categoriesCount;
+    std::bitset<24> *agendaBitset;
+    std::bitset<24> *movieScheduleBitset;
 
-    std::vector<Interval<int, int>> intervals;
-    IntervalTree<int, int> intervalTree;
+    // std::vector<Interval<int, int>> intervals;
+    // IntervalTree<int, int> intervalTree;
 
 public:
     Greedy();

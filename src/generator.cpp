@@ -6,7 +6,7 @@
 void generateInput(int n, int m)
 {
     std::ofstream inputFile;
-    inputFile.open("input.txt");
+    inputFile.open("../in/input.txt");
     inputFile << n << ' ' << m << '\n';
 
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();

@@ -1,5 +1,6 @@
 bin/
 build/
-test/
+in/
+out/
 .vscode/
 .DS_Store/
