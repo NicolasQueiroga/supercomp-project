@@ -1,11 +1,20 @@
 #include "greedy/greedy.hpp"
-#include <iostream>
+#include "random/random.hpp"
+
+// #define RANDOM
 
 int main(int argc, char **argv)
 {
-    std::unique_ptr<Greedy> greedy = std::make_unique<Greedy>();
-    greedy->readMoviesCatalog();
-    greedy->normalSchedule();
-    greedy->showAcceptedMovies();
+#ifndef RANDOM
+    Greedy greedy = Greedy();
+    greedy.readMoviesCatalog();
+    greedy.scheduleMovies();
+    greedy.showAcceptedMovies();
+#else
+    Random random = Random();
+    random.readMoviesCatalog();
+    random.scheduleMovies();
+    random.showAcceptedMovies();
+#endif
     return 0;
 }

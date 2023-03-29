@@ -5,3 +5,5 @@ add_library(scheduler SHARED ${CMAKE_CURRENT_SOURCE_DIR}/scheduler/scheduler.cpp
 target_include_directories(greedy PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../include ${CMAKE_CURRENT_SOURCE_DIR})
 target_include_directories(random PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../include ${CMAKE_CURRENT_SOURCE_DIR})
 target_include_directories(scheduler PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../include ${CMAKE_CURRENT_SOURCE_DIR})
+
+target_link_libraries(random PUBLIC greedy)

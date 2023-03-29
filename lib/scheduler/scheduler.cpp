@@ -1,41 +1,49 @@
 #include "scheduler.hpp"
-#include "IntervalTree.h"
+#include <algorithm>
 #include <iostream>
 
 Scheduler::Scheduler()
 {
     this->movies = new int;
     this->categories = new int;
+
+    this->acceptedMovies = new Movie *[24];
+    for (int i = 0; i < 24; i++)
+        this->acceptedMovies[i] = new Movie;
+
+    this->acceptedMoviesCount = new int(-1);
+    this->agendaBitset = new std::bitset<24>;
+    this->movieScheduleBitset = new std::bitset<24>;
 }
 
 Scheduler::~Scheduler()
 {
-    delete this->movies;
-    delete this->categories;
-
-    for (int i = 0; i < *(this->categories); i++)
-        delete this->maxMoviesPerCat[i];
-    delete[] this->maxMoviesPerCat;
-
-    for (int i = 0; i < *(this->movies); i++)
+    for (int i = 0; i < *this->movies; i++)
         delete this->moviesList[i];
     delete[] this->moviesList;
 
+    delete this->movies;
+    delete this->categories;
+    delete this->maxMoviesPerCat;
 
+    for (int i = 0; i < 24; i++)
+        delete this->acceptedMovies[i];
+    delete[] this->acceptedMovies;
+
+    delete this->acceptedMoviesCount;
+    delete this->agendaBitset;
+    delete this->movieScheduleBitset;
 }
 
 void Scheduler::readMoviesCatalog()
 {
     std::cin >> *this->movies >> *this->categories;
-    this->maxMoviesPerCat = new int *[*this->categories];
+    this->maxMoviesPerCat = new int[*this->categories];
     this->moviesList = new Movie *[*this->movies];
 
     int i = -1;
     while (++i < *this->categories)
-    {
-        this->maxMoviesPerCat[i] = new int;
-        std::cin >> *this->maxMoviesPerCat[i];
-    }
+        std::cin >> this->maxMoviesPerCat[i];
 
     i = -1;
     int cat;
@@ -56,9 +64,43 @@ void Scheduler::showVars()
     std::cout << "Categories: " << *this->categories << '\n';
     std::cout << "Max Movies Per Category: " << '\n';
     for (int i = 0; i < *this->categories; i++)
-        std::cout << *this->maxMoviesPerCat[i] << ' ';
+        std::cout << this->maxMoviesPerCat[i] << ' ';
     std::cout << '\n';
     std::cout << "Movies List: " << '\n';
     for (int i = 0; i < *this->movies; i++)
         std::cout << this->moviesList[i]->startTime << ' ' << this->moviesList[i]->endTime << ' ' << this->moviesList[i]->category << '\n';
+
+    std::sort(this->moviesList, this->moviesList + *this->movies, [](Movie *a, Movie *b)
+              { return a->endTime < b->endTime; });
+}
+
+bool Scheduler::movieIsValid(Movie *movie)
+{
+    this->movieScheduleBitset->reset();
+    for (int j = movie->startTime; j < movie->endTime; j++)
+        this->movieScheduleBitset->set(j);
+
+    if ((!(*this->movieScheduleBitset & *this->agendaBitset).any() &&
+         this->maxMoviesPerCat[movie->category - 1] > 0) &&
+        (movie->startTime < movie->endTime && movie->startTime >= 0 && movie->endTime < 24))
+        return 1;
+
+    return 0;
+}
+
+void Scheduler::addMovieToAgenda(Movie *movie)
+{
+    if (!(*this->movieScheduleBitset & *this->agendaBitset).any() &&
+        this->maxMoviesPerCat[movie->category - 1] > 0)
+    {
+        *this->agendaBitset |= *this->movieScheduleBitset;
+        this->acceptedMovies[++*this->acceptedMoviesCount] = movie;
+        --this->maxMoviesPerCat[movie->category - 1];
+    }
+}
+
+void Scheduler::showAcceptedMovies()
+{
+    for (int i = 0; i <= *this->acceptedMoviesCount; i++)
+        std::cout << this->acceptedMovies[i]->startTime << ' ' << this->acceptedMovies[i]->endTime << ' ' << this->acceptedMovies[i]->category << '\n';
 }
