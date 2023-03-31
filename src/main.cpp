@@ -1,20 +1,21 @@
 #include "greedy/greedy.hpp"
 #include "random/random.hpp"
 
-// #define RANDOM
-
 int main(int argc, char **argv)
 {
-#ifndef RANDOM
-    Greedy greedy = Greedy();
-    greedy.readMoviesCatalog();
-    greedy.scheduleMovies();
-    greedy.showAcceptedMovies();
-#else
-    Random random = Random();
-    random.readMoviesCatalog();
-    random.scheduleMovies();
-    random.showAcceptedMovies();
-#endif
+    if (argv[3][0] == '1')
+    {
+        Random random = Random();
+        random.readMoviesCatalog();
+        random.scheduleMovies();
+        random.showAcceptedMovies();
+    }
+    else if (argv[3][0] == '0')
+    {
+        Greedy greedy = Greedy();
+        greedy.readMoviesCatalog();
+        greedy.scheduleMovies();
+        greedy.showAcceptedMovies();
+    }
     return 0;
 }

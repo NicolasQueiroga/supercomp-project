@@ -1,12 +1,13 @@
 #include <chrono>
 #include <random>
 #include <fstream>
+#include <string>
 #include <boost/random.hpp>
 
-void generateInput(int n, int m)
+void generateInput(int n, int m, std::string filename)
 {
     std::ofstream inputFile;
-    inputFile.open("../in/input.txt");
+    inputFile.open("../in/" + filename);
     inputFile << n << ' ' << m << '\n';
 
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
@@ -41,6 +42,6 @@ void generateInput(int n, int m)
 
 int main(int argc, char **argv)
 {
-    generateInput(atoi(argv[1]), atoi(argv[2]));
+    generateInput(atoi(argv[1]), atoi(argv[2]), argv[3]);
     return 0;
 }
