@@ -2,7 +2,9 @@
 
 void Greedy::scheduleMovies()
 {
-    for (int i = 0; i < *(this->movies); i++)
-        if (this->movieIsValid(this->moviesList[i]))
-            this->addMovieToAgenda(this->moviesList[i]);
+    int *i = new int(-1);
+    while (++*i < *this->movies)
+        if (this->movieIsValid(this->moviesList[*i]))
+            this->addMovieToAgenda(this->moviesList[*i]);
+    delete i;
 }

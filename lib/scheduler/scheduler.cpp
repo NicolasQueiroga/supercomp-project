@@ -8,12 +8,12 @@ Scheduler::Scheduler()
     this->categories = new int;
 
     this->acceptedMovies = new Movie *[24];
-    for (int i = 0; i < 24; i++)
-        this->acceptedMovies[i] = new Movie;
-
     this->acceptedMoviesCount = new int(-1);
     this->agendaBitset = new std::bitset<24>;
     this->movieScheduleBitset = new std::bitset<24>;
+
+    this->moviesList = nullptr;
+    this->maxMoviesPerCat = nullptr;
 }
 
 Scheduler::~Scheduler()
@@ -24,10 +24,7 @@ Scheduler::~Scheduler()
 
     delete this->movies;
     delete this->categories;
-    delete this->maxMoviesPerCat;
-
-    for (int i = 0; i < 24; i++)
-        delete this->acceptedMovies[i];
+    delete[] this->maxMoviesPerCat;
     delete[] this->acceptedMovies;
 
     delete this->acceptedMoviesCount;
@@ -56,6 +53,11 @@ void Scheduler::readMoviesCatalog()
         this->moviesList[i]->startTime = startTime;
         this->moviesList[i]->endTime = endTime;
     }
+    std::sort(this->moviesList, this->moviesList + *this->movies, [](Movie *a, Movie *b) {
+        if (a->endTime == b->endTime)
+            return a->startTime < b->startTime;
+        return a->endTime < b->endTime;
+    });
 }
 
 void Scheduler::showVars()
@@ -69,15 +71,12 @@ void Scheduler::showVars()
     std::cout << "Movies List: " << '\n';
     for (int i = 0; i < *this->movies; i++)
         std::cout << this->moviesList[i]->startTime << ' ' << this->moviesList[i]->endTime << ' ' << this->moviesList[i]->category << '\n';
-
-    std::sort(this->moviesList, this->moviesList + *this->movies, [](Movie *a, Movie *b)
-              { return a->endTime < b->endTime; });
 }
 
 bool Scheduler::movieIsValid(Movie *movie)
 {
     this->movieScheduleBitset->reset();
-    for (int j = movie->startTime; j < movie->endTime; j++)
+    for (short j = movie->startTime; j < movie->endTime; j++)
         this->movieScheduleBitset->set(j);
 
     if ((!(*this->movieScheduleBitset & *this->agendaBitset).any() &&
@@ -101,6 +100,11 @@ void Scheduler::addMovieToAgenda(Movie *movie)
 
 void Scheduler::showAcceptedMovies()
 {
+    std::sort(this->acceptedMovies, this->acceptedMovies + *this->acceptedMoviesCount, [](Movie *a, Movie *b) {
+        if (a->endTime == b->endTime)
+            return a->startTime < b->startTime;
+        return a->endTime < b->endTime;
+    });
     for (int i = 0; i <= *this->acceptedMoviesCount; i++)
         std::cout << this->acceptedMovies[i]->startTime << ' ' << this->acceptedMovies[i]->endTime << ' ' << this->acceptedMovies[i]->category << '\n';
 }

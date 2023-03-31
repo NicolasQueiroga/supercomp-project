@@ -2,6 +2,7 @@
 
 #include "utils.hpp"
 #include <bitset>
+#include <memory>
 
 class Scheduler
 {
