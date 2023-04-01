@@ -7,4 +7,5 @@ class Random : public Scheduler
 {
 public:
     void scheduleMovies();
+    void generateOutput();
 };

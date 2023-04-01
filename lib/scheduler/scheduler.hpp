@@ -13,11 +13,12 @@ protected:
     Movie **acceptedMovies;
     std::bitset<24> *agendaBitset;
     std::bitset<24> *movieScheduleBitset;
-
-public:
+    
     int *movies;
     int *categories;
     int *acceptedMoviesCount;
+
+public:
     Scheduler();
     ~Scheduler();
     void readMoviesCatalog();

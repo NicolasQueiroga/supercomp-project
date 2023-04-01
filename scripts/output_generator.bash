@@ -1,17 +1,20 @@
 #!/bin/bash
 
-# mkdir -p ../out/greedy
-# mkdir -p ../out/random
+if [ ! -d "../out" ]; then
+    mkdir ../out
+    mkdir ../out/greedy ../out/random
+    mkdir ../out/greedy/cat_fixed ../out/greedy/mov_fixed
+    mkdir ../out/random/cat_fixed ../out/random/mov_fixed
+fi
 
-# for i in {1..500}; do
-#     filename="input_$i.txt"
-#     touch "../out/greedy/$filename"
-#     touch "../out/random/$filename"
-# done
+for i in {1..250}; do
+    filename="input_$i.txt"
+    ../bin/main 0 < "../in/$filename" > "../out/greedy/cat_fixed/$filename"
+    ../bin/main 1 < "../in/$filename" > "../out/random/cat_fixed/$filename"
+done
 
-for file in ../in/*.txt
-do
-    filename=$(basename -- "${file%.*}")
-    ../bin/main 0 < "$file" > "../out/greedy/$filename.txt"
-    ../bin/main 1 < "$file" > "../out/random/$filename.txt"
+for i in {251..501}; do
+    filename="input_$i.txt"
+    ../bin/main 0 < "../in/$filename" > "../out/greedy/mov_fixed/$filename"
+    ../bin/main 1 < "../in/$filename" > "../out/random/mov_fixed/$filename"
 done

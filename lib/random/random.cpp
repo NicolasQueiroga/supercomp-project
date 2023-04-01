@@ -5,6 +5,8 @@
 #include <unordered_set>
 #include <vector>
 #include <iostream>
+#include <chrono>
+
 
 void Random::scheduleMovies()
 {
@@ -44,4 +46,14 @@ void Random::scheduleMovies()
     delete choosenIndex;
     delete visitedIndexes;
     delete i;
+}
+
+void Random::generateOutput()
+{
+    this->readMoviesCatalog();
+    auto start = std::chrono::high_resolution_clock::now();
+    this->scheduleMovies();
+    auto finish = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed = finish - start;
+    std::cout << 1 << ' ' << *this->movies << ' ' << *this->categories << ' ' << *this->acceptedMoviesCount << ' ' << elapsed.count() << '\n';
 }

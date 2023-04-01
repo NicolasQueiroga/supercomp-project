@@ -6,4 +6,5 @@ class Greedy : public Scheduler
 {
 public:
     void scheduleMovies();
+    void generateOutput();
 };
