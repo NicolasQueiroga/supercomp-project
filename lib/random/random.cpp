@@ -8,10 +8,9 @@
 
 void Random::scheduleMovies()
 {
-    std::srand(30);
+    std::srand(std::time(nullptr));
 
     std::unordered_set<int> *visitedIndexes = new std::unordered_set<int>();
-    std::unordered_set<int> *randomChecker = new std::unordered_set<int>();
     int *i = new int(-1);
     int *choosenIndex = new int;
 
@@ -33,6 +32,7 @@ void Random::scheduleMovies()
                 if (this->movieIsValid(this->moviesList[*choosenIndex]))
                 {
                     this->addMovieToAgenda(this->moviesList[*choosenIndex]);
+                    visitedIndexes->insert(*choosenIndex);
                     break;
                 }
                 *choosenIndex = std::rand() % *this->movies;
@@ -43,6 +43,5 @@ void Random::scheduleMovies()
 
     delete choosenIndex;
     delete visitedIndexes;
-    delete randomChecker;
     delete i;
 }
