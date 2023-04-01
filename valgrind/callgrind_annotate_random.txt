@@ -1,0 +1,212 @@
+--------------------------------------------------------------------------------
+-- User-annotated source: random.cpp
+--------------------------------------------------------------------------------
+Ir      
+
+-- line 2 ----------------------------------------
+      .  #include <cstdlib>
+      .  #include <ctime>
+      .  #include <algorithm>
+      .  #include <unordered_set>
+      .  #include <vector>
+      .  #include <iostream>
+      .  
+      .  void Random::scheduleMovies()
+     10  {
+     22      std::srand(30);
+1,325,383  => /build/glibc-RIFKjK/glibc-2.31/elf/../sysdeps/aarch64/dl-trampoline.S:_dl_runtime_resolve (2x)
+      .  
+      2      std::unordered_set<int> *visitedIndexes = new std::unordered_set<int>();
+      9      std::unordered_set<int> *randomChecker = new std::unordered_set<int>();
+1,313,984  => ???:operator new(unsigned long)'2 (1x)
+     11      int *i = new int(-1);
+1,313,754  => ???:operator new(unsigned long)'2 (1x)
+      8      int *choosenIndex = new int;
+1,313,530  => ???:operator new(unsigned long)'2 (1x)
+      .  
+  7,874      while (++*i < *this->movies && this->agendaBitset->count() < 24)
+      .      {
+153,830          if (std::rand() % 100 < 75)
+1,309,695  => /usr/include/c++/9/bits/hashtable.h:std::pair<std::__detail::_Node_iterator<int, true, false>, bool> std::_Hashtable<int, int, std::allocator<int>, std::__detail::_Identity, std::equal_to<int>, std::hash<int>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_insert<int const&, std::__detail::_AllocNode<std::allocator<std::__detail::_Hash_node<int, false> > > >(int const&, std::__detail::_AllocNode<std::allocator<std::__detail::_Hash_node<int, false> > > const&, std::integral_constant<bool, true>, unsigned long) [clone .constprop.0] (1x)
+  2,277  => /build/glibc-RIFKjK/glibc-2.31/elf/../sysdeps/aarch64/dl-trampoline.S:_dl_runtime_resolve'2 (3x)
+    783  => /build/glibc-RIFKjK/glibc-2.31/stdlib/rand.c:rand (9x)
+    197  => /home/parallels/Documents/insper/7o/supercomp/project/lib/scheduler/scheduler.cpp:Scheduler::movieIsValid(Movie*) (8x)
+      .          {
+    972              if (this->movieIsValid(this->moviesList[*i]) && visitedIndexes->count(*i) == 0)
+      .              {
+      .                  this->addMovieToAgenda(this->moviesList[*i]);
+      .                  visitedIndexes->insert(*i);
+      .              }
+      .          }
+      .          else
+      .          {
+      .              *choosenIndex = std::rand() % *this->movies;
+-- line 30 ----------------------------------------
+-- line 33 ----------------------------------------
+      .                  if (this->movieIsValid(this->moviesList[*choosenIndex]))
+      .                  {
+      .                      this->addMovieToAgenda(this->moviesList[*choosenIndex]);
+      .                      visitedIndexes->insert(*choosenIndex);
+      .                      break;
+      .                  }
+      .                  *choosenIndex = std::rand() % *this->movies;
+      .                  visitedIndexes->insert(*choosenIndex);
+    531              } while (visitedIndexes->count(*choosenIndex) == 0 && this->agendaBitset->count() > 0);
+      .          }
+      .      }
+      .  
+      .      delete choosenIndex;
+      7      delete visitedIndexes;
+    244  => ???:operator delete(void*, unsigned long)'2 (1x)
+      .      delete randomChecker;
+      3      delete i;
+     12  }
+      9  <counts for unidentified lines in random.cpp>
+
+--------------------------------------------------------------------------------
+Ir      
+--------------------------------------------------------------------------------
+163,291  events annotated
+
+
+--------------------------------------------------------------------------------
+-- User-annotated source: scheduler.cpp
+--------------------------------------------------------------------------------
+Ir     
+
+     .  #include "scheduler.hpp"
+     .  #include <algorithm>
+     .  #include <iostream>
+     .  
+     4  Scheduler::Scheduler()
+     .  {
+    13      this->movies = new int;
+ 3,258  => /build/glibc-RIFKjK/glibc-2.31/elf/../sysdeps/aarch64/dl-trampoline.S:_dl_runtime_resolve (1x)
+     7      this->categories = new int;
+ 2,395  => ???:operator new(unsigned long)'2 (1x)
+     .  
+    12      this->acceptedMovies = new Movie *[24];
+ 2,168  => /build/glibc-RIFKjK/glibc-2.31/elf/../sysdeps/aarch64/dl-trampoline.S:_dl_runtime_resolve'2 (1x)
+     9      this->acceptedMoviesCount = new int(-1);
+   670  => ???:operator new(unsigned long)'2 (1x)
+     9      this->agendaBitset = new std::bitset<24>;
+   445  => ???:operator new(unsigned long)'2 (1x)
+     7      this->movieScheduleBitset = new std::bitset<24>;
+   221  => ???:operator new(unsigned long)'2 (1x)
+     .  
+     .      this->moviesList = nullptr;
+     1      this->maxMoviesPerCat = nullptr;
+     3  }
+     .  
+     5  Scheduler::~Scheduler()
+     .  {
+     5      for (int i = 0; i < *this->movies; i++)
+56,017          delete this->moviesList[i];
+507,873  => ???:operator delete(void*, unsigned long) (3,999x)
+ 2,415  => /build/glibc-RIFKjK/glibc-2.31/elf/../sysdeps/aarch64/dl-trampoline.S:_dl_runtime_resolve'2 (2x)
+     .      delete[] this->moviesList;
+     .  
+    10      delete this->movies;
+   627  => scheduler.cpp:Scheduler::~Scheduler()'2 (1x)
+   127  => ???:operator delete(void*, unsigned long) (1x)
+    15      delete this->categories;
+   485  => ???:operator delete[](void*)'2 (1x)
+   127  => ???:operator delete(void*, unsigned long) (1x)
+     .      delete[] this->maxMoviesPerCat;
+     7      delete[] this->acceptedMovies;
+   377  => ???:operator delete[](void*)'2 (1x)
+     .  
+    22      delete this->acceptedMoviesCount;
+   254  => ???:operator delete(void*, unsigned long) (2x)
+     .      delete this->agendaBitset;
+     .      delete this->movieScheduleBitset;
+     .  }
+     .  
+     .  void Scheduler::readMoviesCatalog()
+    11  {
+    20      std::cin >> *this->movies >> *this->categories;
+16,494,077  => /build/glibc-RIFKjK/glibc-2.31/elf/../sysdeps/aarch64/dl-trampoline.S:_dl_runtime_resolve (1x)
+    12      this->maxMoviesPerCat = new int[*this->categories];
+16,484,094  => ???:operator new[](unsigned long) (1x)
+    12      this->moviesList = new Movie *[*this->movies];
+16,483,865  => ???:operator new[](unsigned long)'2 (1x)
+     .  
+     .      int i = -1;
+   506      while (++i < *this->categories)
+   800          std::cin >> this->maxMoviesPerCat[i];
+1,625,486,118  => ???:std::istream::operator>>(int&)'2 (99x)
+     .  
+     .      i = -1;
+     .      int cat;
+     .      short int startTime, endTime;
+16,007      while (++i < *this->movies)
+     .      {
+76,010          std::cin >> startTime >> endTime >> cat;
+16,353,967  => /build/glibc-RIFKjK/glibc-2.31/elf/../sysdeps/aarch64/dl-trampoline.S:_dl_runtime_resolve'2 (1x)
+32,000          this->moviesList[i] = new Movie;
+33,843,181,942  => ???:operator new(unsigned long)'2 (4,000x)
+20,000          this->moviesList[i]->category = cat;
+ 8,000          this->moviesList[i]->startTime = startTime;
+ 8,000          this->moviesList[i]->endTime = endTime;
+     .      }
+     2      std::sort(this->moviesList, this->moviesList + *this->movies, [](Movie *a, Movie *b) {
+89,378          if (a->endTime == b->endTime)
+88,546              return a->startTime < b->startTime;
+21,369          return a->endTime < b->endTime;
+     .      });
+    11  }
+     .  
+     .  void Scheduler::showVars()
+     .  {
+     .      std::cout << "Movies: " << *this->movies << '\n';
+     .      std::cout << "Categories: " << *this->categories << '\n';
+     .      std::cout << "Max Movies Per Category: " << '\n';
+     .      for (int i = 0; i < *this->categories; i++)
+     .          std::cout << this->maxMoviesPerCat[i] << ' ';
+     .      std::cout << '\n';
+     .      std::cout << "Movies List: " << '\n';
+     .      for (int i = 0; i < *this->movies; i++)
+     .          std::cout << this->moviesList[i]->startTime << ' ' << this->moviesList[i]->endTime << ' ' << this->moviesList[i]->category << '\n';
+     .  }
+     .  
+     .  bool Scheduler::movieIsValid(Movie *movie)
+ 4,000  {
+ 4,000      this->movieScheduleBitset->reset();
+47,116      for (short j = movie->startTime; j < movie->endTime; j++)
+10,372          this->movieScheduleBitset->set(j);
+     .  
+     .      if ((!(*this->movieScheduleBitset & *this->agendaBitset).any() &&
+ 9,048           this->maxMoviesPerCat[movie->category - 1] > 0) &&
+ 4,104          (movie->startTime < movie->endTime && movie->startTime >= 0 && movie->endTime < 24))
+     .          return 1;
+     .  
+ 3,498      return 0;
+ 4,000  }
+     .  
+     .  void Scheduler::addMovieToAgenda(Movie *movie)
+     .  {
+    55      if (!(*this->movieScheduleBitset & *this->agendaBitset).any() &&
+    44          this->maxMoviesPerCat[movie->category - 1] > 0)
+     .      {
+     .          *this->agendaBitset |= *this->movieScheduleBitset;
+    66          this->acceptedMovies[++*this->acceptedMoviesCount] = movie;
+    55          --this->maxMoviesPerCat[movie->category - 1];
+     .      }
+    11  }
+     .  
+     .  void Scheduler::showAcceptedMovies()
+     .  {
+     .      std::sort(this->acceptedMovies, this->acceptedMovies + *this->acceptedMoviesCount, [](Movie *a, Movie *b) {
+     .          if (a->endTime == b->endTime)
+     .              return a->startTime < b->startTime;
+     .          return a->endTime < b->endTime;
+     .      });
+     .      for (int i = 0; i <= *this->acceptedMoviesCount; i++)
+     .          std::cout << this->acceptedMovies[i]->startTime << ' ' << this->acceptedMovies[i]->endTime << ' ' << this->acceptedMovies[i]->category << '\n';
+     3  }
+     9  <counts for unidentified lines in scheduler.cpp>
+
+--------------------------------------------------------------------------------
+Ir      
+--------------------------------------------------------------------------------
+503,202  events annotated

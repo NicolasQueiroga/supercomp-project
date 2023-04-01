@@ -1,0 +1,33 @@
+GREEDY:
+==162893== Memcheck, a memory error detector
+==162893== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==162893== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==162893== Command: ../bin/main 0
+==162893== 
+0 4000 100 22 0.00196802
+==162893== 
+==162893== HEAP SUMMARY:
+==162893==     in use at exit: 0 bytes in 0 blocks
+==162893==   total heap usage: 4,012 allocs, 4,012 frees, 142,448 bytes allocated
+==162893== 
+==162893== All heap blocks were freed -- no leaks are possible
+==162893== 
+==162893== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+
+
+
+RANDOM:
+==162996== Memcheck, a memory error detector
+==162996== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==162996== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==162996== Command: ../bin/main 1
+==162996== 
+0 4000 100 10 0.0162485
+==162996== 
+==162996== HEAP SUMMARY:
+==162996==     in use at exit: 0 bytes in 0 blocks
+==162996==   total heap usage: 4,904 allocs, 4,904 frees, 173,756 bytes allocated
+==162996== 
+==162996== All heap blocks were freed -- no leaks are possible
+==162996== 
+==162996== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
