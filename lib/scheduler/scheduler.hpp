@@ -7,17 +7,17 @@
 class Scheduler
 {
 protected:
-    int *movies;
-    int *categories;
     int *maxMoviesPerCat;
     Movie **moviesList;
 
     Movie **acceptedMovies;
-    int *acceptedMoviesCount;
     std::bitset<24> *agendaBitset;
     std::bitset<24> *movieScheduleBitset;
 
 public:
+    int *movies;
+    int *categories;
+    int *acceptedMoviesCount;
     Scheduler();
     ~Scheduler();
     void readMoviesCatalog();
