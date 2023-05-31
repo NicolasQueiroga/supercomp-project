@@ -68,7 +68,8 @@ void Thrust::generatePermutations()
 
         thrust::counting_iterator<int> first(0);
         thrust::counting_iterator<int> last = first + *movies;
-        thrust::transform(first, last, d_results.begin(), movie_validity_checker(thrust::raw_pointer_cast(d_moviesList.data()), thrust::raw_pointer_cast(d_agendaBitset.data()), thrust::raw_pointer_cast(d_movieScheduleBitset.data()), thrust::raw_pointer_cast(d_maxMoviesPerCat.data())));
+        //! FIX
+        // thrust::transform(first, last, d_results.begin(), movie_validity_checker(thrust::raw_pointer_cast(d_moviesList.data()), thrust::raw_pointer_cast(d_agendaBitset.data()), thrust::raw_pointer_cast(d_movieScheduleBitset.data()), thrust::raw_pointer_cast(d_maxMoviesPerCat.data())));
 
         int max_cnt = thrust::reduce(d_results.begin(), d_results.end());
 
