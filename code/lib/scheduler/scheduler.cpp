@@ -53,11 +53,11 @@ void Scheduler::readMoviesCatalog()
         this->moviesList[i]->startTime = startTime;
         this->moviesList[i]->endTime = endTime;
     }
-    std::sort(this->moviesList, this->moviesList + *this->movies, [](Movie *a, Movie *b) {
+    std::sort(this->moviesList, this->moviesList + *this->movies, [](Movie *a, Movie *b)
+              {
         if (a->endTime == b->endTime)
             return a->startTime < b->startTime;
-        return a->endTime < b->endTime;
-    });
+        return a->endTime < b->endTime; });
 }
 
 void Scheduler::showVars()
@@ -89,22 +89,18 @@ bool Scheduler::movieIsValid(Movie *movie)
 
 void Scheduler::addMovieToAgenda(Movie *movie)
 {
-    if (!(*this->movieScheduleBitset & *this->agendaBitset).any() &&
-        this->maxMoviesPerCat[movie->category - 1] > 0)
-    {
-        *this->agendaBitset |= *this->movieScheduleBitset;
-        this->acceptedMovies[++*this->acceptedMoviesCount] = movie;
-        --this->maxMoviesPerCat[movie->category - 1];
-    }
+    *this->agendaBitset |= *this->movieScheduleBitset;
+    this->acceptedMovies[++*this->acceptedMoviesCount] = movie;
+    --this->maxMoviesPerCat[movie->category - 1];
 }
 
 void Scheduler::showAcceptedMovies()
 {
-    std::sort(this->acceptedMovies, this->acceptedMovies + *this->acceptedMoviesCount, [](Movie *a, Movie *b) {
+    std::sort(this->acceptedMovies, this->acceptedMovies + *this->acceptedMoviesCount, [](Movie *a, Movie *b)
+              {
         if (a->endTime == b->endTime)
             return a->startTime < b->startTime;
-        return a->endTime < b->endTime;
-    });
+        return a->endTime < b->endTime; });
     for (int i = 0; i <= *this->acceptedMoviesCount; i++)
         std::cout << this->acceptedMovies[i]->startTime << ' ' << this->acceptedMovies[i]->endTime << ' ' << this->acceptedMovies[i]->category << '\n';
 }
