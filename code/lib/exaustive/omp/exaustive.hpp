@@ -9,9 +9,8 @@
 class Exaustive : public Scheduler
 {
 private:
-    int *maxMoviesPerPermutation;
-    int *maxMovies;
-    std::bitset<24> *bestAgendaBitset;
+    std::vector<Movie> *possibilities;
+    int *maxMoviesPerCat_copy;
 
 public:
     Exaustive();
