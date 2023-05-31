@@ -83,7 +83,6 @@ bool Scheduler::movieIsValid(Movie *movie)
          this->maxMoviesPerCat[movie->category - 1] > 0) &&
         (movie->startTime < movie->endTime && movie->startTime >= 0 && movie->endTime < 24))
         return 1;
-
     return 0;
 }
 

@@ -6,17 +6,19 @@
 #include <memory>
 #include <vector>
 
-class Exaustive : public Scheduler
+class OpenMp : public Scheduler
 {
 private:
-    std::vector<Movie> *possibilities;
     int *maxMoviesPerCat_copy;
     int *cnt;
+    int *max_cnt;
+    int *selectedMovie;
 
 public:
-    Exaustive();
-    ~Exaustive();
+    OpenMp();
+    ~OpenMp();
     void generatePermutations();
     void showSelectedMovies();
     void generateOutput();
+    void resetVariables();
 };
