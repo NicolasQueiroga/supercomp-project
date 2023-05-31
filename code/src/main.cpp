@@ -3,8 +3,8 @@
 
 int main(int argc, char **argv)
 {
-    Exaustive *exaustive = new Exaustive();
-    exaustive->generateOutput();
-    delete exaustive;
+    OpenMp *omp_ = new OpenMp();
+    omp_->generateOutput();
+    delete omp_;
     return 0;
 }
