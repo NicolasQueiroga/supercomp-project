@@ -11,6 +11,7 @@ class Exaustive : public Scheduler
 private:
     std::vector<Movie> *possibilities;
     int *maxMoviesPerCat_copy;
+    int *cnt;
 
 public:
     Exaustive();
