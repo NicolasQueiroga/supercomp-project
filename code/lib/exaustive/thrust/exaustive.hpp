@@ -2,14 +2,12 @@
 
 #include "utils.hpp"
 #include "scheduler/scheduler.hpp"
+#include <thrust/device_vector.h>
 
 class Thrust : public Scheduler
 {
 private:
-    int *maxMoviesPerCat_copy;
-    int *cnt;
-    int *max_cnt;
-    int *selectedMovie;
+
 
 public:
     Thrust();
@@ -17,6 +15,6 @@ public:
     void generatePermutations();
     void showSelectedMovies();
     void generateOutput();
-    void resetVariables();
+    void logic();
     bool movieIsValid(const Movie *movie);
 };
