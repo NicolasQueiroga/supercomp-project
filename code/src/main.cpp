@@ -4,12 +4,12 @@
 
 int main(int argc, char **argv)
 {
-    OpenMp *omp_ = new OpenMp();
-    omp_->generateOutput();
-    delete omp_;
+    // OpenMp *omp_ = new OpenMp();
+    // omp_->generateOutput();
+    // delete omp_;
 
     Thrust *thrust_ = new Thrust();
-    thrust_->logic();
+    thrust_->generateOutput();
     delete thrust_;
 
     return 0;

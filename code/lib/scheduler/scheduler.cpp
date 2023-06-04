@@ -49,15 +49,16 @@ void Scheduler::readMoviesCatalog()
     {
         std::cin >> startTime >> endTime >> cat;
         this->moviesList[i] = new Movie;
+        this->moviesList[i]->id = i;
         this->moviesList[i]->category = cat;
         this->moviesList[i]->startTime = startTime;
         this->moviesList[i]->endTime = endTime;
     }
-    std::sort(this->moviesList, this->moviesList + *this->movies, [](Movie *a, Movie *b)
-              {
-        if (a->endTime == b->endTime)
-            return a->startTime < b->startTime;
-        return a->endTime < b->endTime; });
+    // std::sort(this->moviesList, this->moviesList + *this->movies, [](Movie *a, Movie *b)
+    //           {
+    //     if (a->endTime == b->endTime)
+    //         return a->startTime < b->startTime;
+    //     return a->endTime < b->endTime; });
 }
 
 void Scheduler::showVars()
